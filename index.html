@@ -6,18 +6,58 @@
     <meta name="description" content="Pedro & Metmot - Uma página de amor">
     <title>Pedro & Metmot ♥</title>
     
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Pedro & Metmot ♥">
+    <meta property="og:description" content="Juntos, para sempre 💕">
+    <meta property="og:image" content="assets/images/casal.png">
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Pedro & Metmot ♥">
+    <meta name="twitter:description" content="Juntos, para sempre 💕">
+    <meta name="twitter:image" content="assets/images/casal.png">
+    
     <!-- Favicon -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>❤️</text></svg>">
     
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
-    <!-- Profile Link -->
-    <a href="https://www.tiktok.com/@trang941158183" target="_blank" rel="noopener noreferrer" class="profile-link">
-        <img src="metmot.jpeg" alt="Metmot" class="profile-link__image">
+    <!-- Profile Link - Metmot (Left) -->
+    <a href="https://www.tiktok.com/@trang941158183" target="_blank" rel="noopener noreferrer" class="profile-link profile-link--left">
+        <img src="assets/images/metmot.jpeg" alt="Metmot" class="profile-link__image">
         <span class="profile-link__tooltip">TikTok 💕</span>
     </a>
+
+    <!-- Profile Link - Pedro (Right) -->
+    <div class="profile-link profile-link--right">
+        <img src="assets/images/pedro.jpg" alt="Pedro" class="profile-link__image">
+        <span class="profile-link__tooltip">TikTok 💕</span>
+        <div class="profile-link__dropdown">
+            <a href="https://www.tiktok.com/@pedrohenrique771774042" target="_blank" rel="noopener noreferrer" class="profile-link__dropdown-item">
+                @pedrohenrique771774042
+            </a>
+            <a href="https://www.tiktok.com/@pedrohenrique.514" target="_blank" rel="noopener noreferrer" class="profile-link__dropdown-item">
+                @pedrohenrique.514
+            </a>
+            <a href="https://www.tiktok.com/@pedrohenriquemanentidoss" target="_blank" rel="noopener noreferrer" class="profile-link__dropdown-item">
+                @pedrohenriquemanentidoss
+            </a>
+        </div>
+    </div>
+
+    <!-- Language Selector -->
+    <div class="lang-selector">
+        <button class="lang-selector__btn" data-lang="pt" title="Português (Brasil)">
+            <img src="https://flagcdn.com/w40/br.png" alt="Brasil" class="lang-selector__flag">
+        </button>
+        <span class="lang-selector__divider">|</span>
+        <button class="lang-selector__btn" data-lang="vi" title="Tiếng Việt">
+            <img src="https://flagcdn.com/w40/vn.png" alt="Việt Nam" class="lang-selector__flag">
+        </button>
+    </div>
 
     <main class="love-page">
         <!-- Background Effects -->
@@ -35,9 +75,9 @@
                 <div class="couple-card__glow"></div>
                 
                 <div class="couple-card__inner">
-                    <!-- Heart Icon -->
-                    <div class="heart-icon">
-                        <span class="heart-icon__shine"></span>
+                    <!-- Couple Image -->
+                    <div class="couple-image">
+                        <img src="assets/images/casal.png" alt="Pedro & Metmot" class="couple-image__photo">
                     </div>
                     
                     <!-- Couple Names -->
@@ -49,7 +89,7 @@
                     
                     <!-- Love Quote -->
                     <div class="love-quote">
-                        <p class="love-quote__text">"Juntos, para sempre"</p>
+                        <p class="love-quote__text" data-i18n="quote">"Juntos, para sempre"</p>
                         <div class="love-quote__hearts">
                             <span class="love-quote__heart">♥</span>
                             <span class="love-quote__heart">♥</span>
@@ -61,10 +101,19 @@
         </div>
         
         <!-- Date Counter -->
-        <div class="date-badge">Amor eterno</div>
+        <div class="date-badge" data-i18n="badge">Amor eterno</div>
     </main>
     
+    <!-- Image Lightbox Modal -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox__backdrop"></div>
+        <div class="lightbox__content">
+            <img src="assets/images/casal.png" alt="Pedro & Metmot" class="lightbox__image">
+            <button class="lightbox__close" aria-label="Fechar">&times;</button>
+        </div>
+    </div>
+
     <!-- JavaScript -->
-    <script src="script.js"></script>
+    <script src="assets/js/script.js"></script>
 </body>
 </html>

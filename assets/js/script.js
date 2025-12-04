@@ -17,7 +17,7 @@
             pandaCount: 8,
             cuteCount: 15,
             heartEmojis: ['❤️', '💕', '💗', '💖', '💝', '💓', '💞', '💘', '🩷', '🤍'],
-            pandaEmojis: ['🐼', '🐻', '🧸'],
+            pandaEmojis: ['🐼'],
             cuteEmojis: ['✨', '🌸', '🦋', '🌟', '⭐', '💫', '🎀', '🌷', '🌺', '💮'],
             sparkleEmojis: ['✨', '💖', '⭐', '🌟']
         },
@@ -583,6 +583,160 @@
     };
 
     // ==========================================================================
+    // Módulo: Lightbox (Ampliar imagem do casal)
+    // ==========================================================================
+    const LightboxModule = {
+        lightbox: null,
+        coupleImage: null,
+        closeBtn: null,
+        backdrop: null,
+
+        init() {
+            this.lightbox = document.getElementById('lightbox');
+            this.coupleImage = document.querySelector('.couple-image');
+            this.closeBtn = document.querySelector('.lightbox__close');
+            this.backdrop = document.querySelector('.lightbox__backdrop');
+
+            if (!this.lightbox || !this.coupleImage) return;
+
+            // Abrir lightbox ao clicar na imagem
+            this.coupleImage.addEventListener('click', this.open.bind(this));
+
+            // Fechar lightbox
+            this.closeBtn?.addEventListener('click', this.close.bind(this));
+            this.backdrop?.addEventListener('click', this.close.bind(this));
+
+            // Fechar com ESC
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && this.lightbox.classList.contains('lightbox--active')) {
+                    this.close();
+                }
+            });
+        },
+
+        open() {
+            this.lightbox.classList.add('lightbox--active');
+            document.body.style.overflow = 'hidden';
+            
+            // Criar explosão de corações ao abrir
+            const rect = this.coupleImage.getBoundingClientRect();
+            for (let i = 0; i < 12; i++) {
+                setTimeout(() => {
+                    CursorTrailModule.createClickHeart(
+                        rect.left + rect.width / 2,
+                        rect.top + rect.height / 2
+                    );
+                }, i * 60);
+            }
+        },
+
+        close() {
+            this.lightbox.classList.remove('lightbox--active');
+            document.body.style.overflow = '';
+        }
+    };
+
+    // ==========================================================================
+    // Módulo: Language Selector (Seletor de idioma)
+    // ==========================================================================
+    const LanguageModule = {
+        currentLang: 'pt',
+        buttons: null,
+
+        // Traduções
+        translations: {
+            pt: {
+                quote: '"Juntos, para sempre"',
+                badge: 'Amor eterno'
+            },
+            vi: {
+                quote: '"Mãi mãi bên nhau"',
+                badge: 'Tình yêu vĩnh cửu'
+            }
+        },
+
+        init() {
+            this.buttons = document.querySelectorAll('.lang-selector__btn');
+            if (!this.buttons.length) return;
+
+            // Detectar idioma do navegador
+            this.detectBrowserLanguage();
+
+            // Adicionar eventos de clique
+            this.buttons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const lang = btn.dataset.lang;
+                    this.setLanguage(lang);
+                });
+            });
+
+            // Aplicar idioma inicial
+            this.setLanguage(this.currentLang);
+        },
+
+        detectBrowserLanguage() {
+            const browserLang = navigator.language || navigator.userLanguage;
+            
+            // Verificar se é vietnamita
+            if (browserLang.startsWith('vi')) {
+                this.currentLang = 'vi';
+            } 
+            // Verificar se é português
+            else if (browserLang.startsWith('pt')) {
+                this.currentLang = 'pt';
+            }
+            // Padrão: português
+            else {
+                this.currentLang = 'pt';
+            }
+        },
+
+        setLanguage(lang) {
+            this.currentLang = lang;
+
+            // Atualizar botões ativos
+            this.buttons.forEach(btn => {
+                if (btn.dataset.lang === lang) {
+                    btn.classList.add('lang-selector__btn--active');
+                } else {
+                    btn.classList.remove('lang-selector__btn--active');
+                }
+            });
+
+            // Atualizar textos
+            const elements = document.querySelectorAll('[data-i18n]');
+            elements.forEach(el => {
+                const key = el.dataset.i18n;
+                if (this.translations[lang] && this.translations[lang][key]) {
+                    el.textContent = this.translations[lang][key];
+                }
+            });
+
+            // Atualizar atributo lang do HTML
+            document.documentElement.lang = lang === 'pt' ? 'pt-BR' : 'vi';
+
+            // Criar efeito visual na troca
+            this.createSwitchEffect();
+        },
+
+        createSwitchEffect() {
+            // Pequena explosão de corações na troca de idioma
+            const selector = document.querySelector('.lang-selector');
+            if (selector) {
+                const rect = selector.getBoundingClientRect();
+                for (let i = 0; i < 5; i++) {
+                    setTimeout(() => {
+                        CursorTrailModule.createClickHeart(
+                            rect.left + rect.width / 2,
+                            rect.top + rect.height / 2
+                        );
+                    }, i * 50);
+                }
+            }
+        }
+    };
+
+    // ==========================================================================
     // Inicialização
     // ==========================================================================
     function init() {
@@ -591,6 +745,8 @@
         CardInteractionModule.init();
         SideDecorationsModule.init();
         HeartsRingModule.init();
+        LightboxModule.init();
+        LanguageModule.init();
     }
 
     if (document.readyState === 'loading') {
