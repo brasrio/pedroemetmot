@@ -1,0 +1,540 @@
+/* ==========================================================================
+   Pedro & Metmot - Love Page
+   Metodologia BEM (Block Element Modifier)
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Google Fonts Import
+   -------------------------------------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Great+Vibes&family=Quicksand:wght@300;400;500&display=swap');
+
+/* --------------------------------------------------------------------------
+   CSS Variables
+   -------------------------------------------------------------------------- */
+:root {
+    --color-primary: #1a1a2e;
+    --color-secondary: #16213e;
+    --color-accent: #e94560;
+    --color-accent-light: #ff6b8a;
+    --color-gold: #f0c674;
+    --color-gold-light: #ffeaa7;
+    --color-white: #ffffff;
+    --color-white-soft: rgba(255, 255, 255, 0.9);
+    
+    --font-display: 'Great Vibes', cursive;
+    --font-elegant: 'Cormorant Garamond', serif;
+    --font-body: 'Quicksand', sans-serif;
+    
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* --------------------------------------------------------------------------
+   Reset & Base
+   -------------------------------------------------------------------------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--font-body);
+    overflow: hidden;
+    position: relative;
+}
+
+/* --------------------------------------------------------------------------
+   Block: love-page
+   -------------------------------------------------------------------------- */
+.love-page {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 50%, #0f3460 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Element: love-page__background */
+.love-page__background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Element: love-page__stars */
+.love-page__stars {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(2px 2px at 20px 30px, var(--color-white), transparent),
+        radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
+        radial-gradient(1px 1px at 90px 40px, var(--color-white), transparent),
+        radial-gradient(2px 2px at 160px 120px, rgba(255,255,255,0.9), transparent),
+        radial-gradient(1px 1px at 230px 80px, var(--color-white), transparent);
+    background-repeat: repeat;
+    background-size: 250px 250px;
+    animation: love-page__stars-twinkle 4s ease-in-out infinite;
+    opacity: 0.6;
+}
+
+@keyframes love-page__stars-twinkle {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 0.9; }
+}
+
+/* Element: love-page__content */
+.love-page__content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding: 2rem;
+}
+
+/* --------------------------------------------------------------------------
+   Block: couple-card
+   -------------------------------------------------------------------------- */
+.couple-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    border-radius: 30px;
+    padding: 3rem 4rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 
+        0 25px 50px -12px rgba(0, 0, 0, 0.5),
+        0 0 100px rgba(233, 69, 96, 0.1),
+        inset 0 0 60px rgba(255, 255, 255, 0.02);
+    position: relative;
+    overflow: hidden;
+    animation: couple-card__appear 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+}
+
+@keyframes couple-card__appear {
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Element: couple-card__glow */
+.couple-card__glow {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(
+        from 0deg,
+        transparent,
+        var(--color-accent) 10%,
+        transparent 20%,
+        transparent 80%,
+        var(--color-gold) 90%,
+        transparent
+    );
+    animation: couple-card__glow-rotate 8s linear infinite;
+    opacity: 0.1;
+}
+
+@keyframes couple-card__glow-rotate {
+    to { transform: rotate(360deg); }
+}
+
+/* Element: couple-card__inner */
+.couple-card__inner {
+    position: relative;
+    z-index: 2;
+}
+
+/* --------------------------------------------------------------------------
+   Block: heart-icon
+   -------------------------------------------------------------------------- */
+.heart-icon {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 2.5rem;
+    position: relative;
+    animation: heart-icon__beat 1.5s ease-in-out infinite;
+    filter: drop-shadow(0 10px 30px rgba(233, 69, 96, 0.5));
+}
+
+.heart-icon::before,
+.heart-icon::after {
+    content: "";
+    position: absolute;
+    width: 60px;
+    height: 100px;
+    background: linear-gradient(135deg, var(--color-accent-light) 0%, var(--color-accent) 100%);
+    border-radius: 60px 60px 0 0;
+}
+
+.heart-icon::before {
+    left: 30px;
+    transform: rotate(-45deg);
+    transform-origin: 0 100%;
+}
+
+.heart-icon::after {
+    left: 0;
+    transform: rotate(45deg);
+    transform-origin: 100% 100%;
+}
+
+@keyframes heart-icon__beat {
+    0%, 100% {
+        transform: scale(1);
+    }
+    15% {
+        transform: scale(1.15);
+    }
+    30% {
+        transform: scale(1);
+    }
+    45% {
+        transform: scale(1.1);
+    }
+    60% {
+        transform: scale(1);
+    }
+}
+
+/* Element: heart-icon__shine */
+.heart-icon__shine {
+    position: absolute;
+    top: 20%;
+    left: 25%;
+    width: 15px;
+    height: 15px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    filter: blur(3px);
+    z-index: 10;
+    animation: heart-icon__shine-pulse 2s ease-in-out infinite;
+}
+
+@keyframes heart-icon__shine-pulse {
+    0%, 100% { opacity: 0.6; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.2); }
+}
+
+/* --------------------------------------------------------------------------
+   Block: couple-names
+   -------------------------------------------------------------------------- */
+.couple-names {
+    margin-bottom: 2rem;
+}
+
+/* Element: couple-names__name */
+.couple-names__name {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 8vw, 5rem);
+    color: var(--color-white);
+    text-shadow: 
+        0 2px 10px rgba(0, 0, 0, 0.3),
+        0 0 40px rgba(255, 255, 255, 0.1);
+    opacity: 0;
+    transform: translateX(-30px);
+    animation: couple-names__name-appear 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    letter-spacing: 2px;
+}
+
+.couple-names__name--first {
+    animation-delay: 0.3s;
+}
+
+.couple-names__name--second {
+    animation-delay: 0.9s;
+    transform: translateX(30px);
+}
+
+@keyframes couple-names__name-appear {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Element: couple-names__connector */
+.couple-names__connector {
+    font-family: var(--font-elegant);
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 300;
+    color: var(--color-gold);
+    margin: 0.5rem 0;
+    display: block;
+    opacity: 0;
+    animation: couple-names__connector-appear 0.6s ease-out 0.6s forwards;
+    text-shadow: 0 0 30px rgba(240, 198, 116, 0.5);
+    position: relative;
+}
+
+.couple-names__connector::before,
+.couple-names__connector::after {
+    content: '✦';
+    font-size: 0.5em;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.7;
+    animation: couple-names__star-sparkle 2s ease-in-out infinite;
+}
+
+.couple-names__connector::before {
+    left: 30%;
+}
+
+.couple-names__connector::after {
+    right: 30%;
+    animation-delay: 1s;
+}
+
+@keyframes couple-names__connector-appear {
+    to { opacity: 1; }
+}
+
+@keyframes couple-names__star-sparkle {
+    0%, 100% { opacity: 0.3; transform: translateY(-50%) scale(0.8); }
+    50% { opacity: 1; transform: translateY(-50%) scale(1.2); }
+}
+
+/* --------------------------------------------------------------------------
+   Block: love-quote
+   -------------------------------------------------------------------------- */
+.love-quote {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    opacity: 0;
+    animation: love-quote__appear 0.8s ease-out 1.2s forwards;
+}
+
+@keyframes love-quote__appear {
+    to { opacity: 1; }
+}
+
+/* Element: love-quote__text */
+.love-quote__text {
+    font-family: var(--font-elegant);
+    font-size: clamp(1.2rem, 3vw, 1.5rem);
+    font-style: italic;
+    color: var(--color-white-soft);
+    letter-spacing: 1px;
+    line-height: 1.6;
+}
+
+/* Element: love-quote__hearts */
+.love-quote__hearts {
+    display: flex;
+    justify-content: center;
+    gap: 0.8rem;
+    margin-top: 1rem;
+}
+
+.love-quote__heart {
+    color: var(--color-accent);
+    font-size: 1.2rem;
+    animation: love-quote__heart-float 3s ease-in-out infinite;
+    text-shadow: 0 0 20px var(--color-accent);
+}
+
+.love-quote__heart:nth-child(2) {
+    animation-delay: 0.5s;
+    font-size: 1.5rem;
+}
+
+.love-quote__heart:nth-child(3) {
+    animation-delay: 1s;
+}
+
+@keyframes love-quote__heart-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+/* --------------------------------------------------------------------------
+   Block: particles
+   -------------------------------------------------------------------------- */
+.particles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 5;
+}
+
+/* Element: particles__item */
+.particles__item {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0;
+}
+
+.particles__item--heart {
+    font-size: 1.2rem;
+    color: var(--color-accent);
+    filter: blur(0.5px);
+}
+
+.particles__item--star {
+    width: 4px;
+    height: 4px;
+    background: var(--color-gold-light);
+    box-shadow: 0 0 10px var(--color-gold);
+}
+
+/* --------------------------------------------------------------------------
+   Block: profile-link
+   -------------------------------------------------------------------------- */
+.profile-link {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.profile-link__image {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--color-accent);
+    box-shadow: 
+        0 0 20px rgba(233, 69, 96, 0.4),
+        0 5px 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: profile-link__pulse 3s ease-in-out infinite;
+}
+
+.profile-link:hover .profile-link__image {
+    transform: scale(1.15) rotate(5deg);
+    border-color: var(--color-gold);
+    box-shadow: 
+        0 0 30px rgba(240, 198, 116, 0.6),
+        0 8px 25px rgba(0, 0, 0, 0.4);
+}
+
+@keyframes profile-link__pulse {
+    0%, 100% {
+        box-shadow: 
+            0 0 20px rgba(233, 69, 96, 0.4),
+            0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+    50% {
+        box-shadow: 
+            0 0 35px rgba(233, 69, 96, 0.6),
+            0 0 50px rgba(233, 69, 96, 0.3),
+            0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+}
+
+.profile-link__tooltip {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    color: var(--color-white);
+    background: rgba(0, 0, 0, 0.7);
+    padding: 6px 12px;
+    border-radius: 20px;
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    backdrop-filter: blur(10px);
+}
+
+.profile-link:hover .profile-link__tooltip {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* --------------------------------------------------------------------------
+   Block: date-badge
+   -------------------------------------------------------------------------- */
+.date-badge {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.4);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    opacity: 0;
+    animation: date-badge__appear 1s ease-out 1.5s forwards;
+}
+
+@keyframes date-badge__appear {
+    to { opacity: 1; }
+}
+
+/* --------------------------------------------------------------------------
+   Responsive Design
+   -------------------------------------------------------------------------- */
+@media (max-width: 600px) {
+    .couple-card {
+        padding: 2rem 1.5rem;
+        margin: 1rem;
+        border-radius: 20px;
+    }
+    
+    .heart-icon {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 1.5rem;
+    }
+    
+    .heart-icon::before,
+    .heart-icon::after {
+        width: 40px;
+        height: 66px;
+        border-radius: 40px 40px 0 0;
+    }
+    
+    .heart-icon::before {
+        left: 20px;
+    }
+    
+    .couple-names__connector::before,
+    .couple-names__connector::after {
+        display: none;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   Accessibility - Reduced Motion
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
